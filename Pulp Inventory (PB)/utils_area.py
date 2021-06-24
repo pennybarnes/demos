@@ -18,7 +18,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
-class CarbonLost(object):
+class WoodCalc(object):
     def __init__(self, map_widget):
 
         # Set the variables to work with
@@ -73,24 +73,24 @@ class CarbonLost(object):
         self.draw_control.on_draw(self.plot_timeseries)
         self.clear_plot_control.widget.on_click(self.clear_plot)
 
-    def get_deforestation(self):
+#     def get_deforestation(self):
 
-        # Definitions
-        deforestation_product = "descarteslabs:ul_deforestation_external_v3"
-        deforestation_start = "2020-07-01"
-        deforestation_end = "2020-10-30"
+#         # Definitions
+#         deforestation_product = "descarteslabs:ul_deforestation_external_v3"
+#         deforestation_start = "2020-07-01"
+#         deforestation_end = "2020-10-30"
 
-        # Load Descartes Labs' deforestation product
-        defor_ic = wf.ImageCollection.from_id(
-            deforestation_product,
-            start_datetime=deforestation_start,
-            end_datetime=deforestation_end,
-            resampler="near",
-        ).max(axis="images")
-        detections = defor_ic.pick_bands("detection_date")
-        dl_deforestation = detections.mask(detections == 0)
+#         # Load Descartes Labs' deforestation product
+#         defor_ic = wf.ImageCollection.from_id(
+#             deforestation_product,
+#             start_datetime=deforestation_start,
+#             end_datetime=deforestation_end,
+#             resampler="near",
+#         ).max(axis="images")
+#         detections = defor_ic.pick_bands("detection_date")
+#         dl_deforestation = detections.mask(detections == 0)
 
-        self.deforestation = dl_deforestation
+#         self.deforestation = dl_deforestation
 
     def get_forest_carbon(self):
 
