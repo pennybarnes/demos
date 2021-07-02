@@ -54,7 +54,7 @@ class WoodCalc(object):
         self.m.add_control(self.clear_plot_control)
 
         # Get the Workflows Images for deforestation and forest carbon
-        self.get_deforestation()
+        # self.get_deforestation()
         self.get_forest_carbon()
 
         # Initialize the plotting variables
@@ -92,19 +92,25 @@ class WoodCalc(object):
 
 #         self.deforestation = dl_deforestation
 
-    def get_forest_carbon(self):
+    def get_s2(self):
 
         # Get Descartes Labs' forest carbon density product
-        dl_forest_carbon = wf.ImageCollection.from_id(
-            "descarteslabs:GEDI:TCH:ForestCarbon:final:v2.1",
-            start_datetime="2019-01-01",
+        dl_s2 = wf.ImageCollection.from_id(
+            "sentinel-2:L1C",
+            start_datetime="2020-01-01",
             end_datetime="2020-12-31",
             resampler="near",
         ).mosaic()
-        dl_acd = dl_forest_carbon.pick_bands(["acd_tons"])
-        dl_acd = dl_acd.mask(dl_acd == 0)
 
-        self.carbon_density = dl_acd
+    def get_cdl(self):
+
+        # Get Descartes Labs' forest carbon density product
+        dl_cdl = wf.ImageCollection.from_id(
+            "usda:cdl:v1",
+            start_datetime="2020-12-30",
+            end_datetime="2020-12-31",
+            resampler="near",
+        ).mosaic()
 
     def calculate(self, *args, **kwargs):
         """
